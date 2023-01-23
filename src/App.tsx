@@ -71,7 +71,7 @@ const App = () => {
                 status: 'ingame',
             });
 
-            getSurroundingFieldsValues(index);
+            // getSurroundingFieldsValues(index);
         }
 
         setTurns((prevTurns) => prevTurns + 1);
@@ -101,23 +101,23 @@ const App = () => {
         }
     };
 
-    const getSurroundingFieldsValues = (n: number, col: number = COL_NUM) => {
-        // -7-6-5
-        // -1-n+1
-        // +5+6+7
+    // const getSurroundingFieldsValues = (n: number, col: number = COL_NUM) => {
+    //     // -7-6-5
+    //     // -1-n+1
+    //     // +5+6+7
 
-        // 1d array, maybe trough col and row
-        setSurroundingArrayIndexes([
-            n - col - 1,
-            n - col,
-            n - col + 1,
-            n - 1,
-            n + 1,
-            n + col - 1,
-            n + col,
-            n + col + 1,
-        ]);
-    };
+    //     // 1d array, maybe trough col and row
+    //     setSurroundingArrayIndexes([
+    //         n - col - 1,
+    //         n - col,
+    //         n - col + 1,
+    //         n - 1,
+    //         n + 1,
+    //         n + col - 1,
+    //         n + col,
+    //         n + col + 1,
+    //     ]);
+    // };
 
     // useEffect(() => {
     //     // save to redux - totalTries, winNumber, etc
