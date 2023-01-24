@@ -21,6 +21,7 @@ button {
     align-items: center;
     transform: translateZ(0);
     text-align: center;
+    transition: all 0.4s ease;
 
     &--loading:after {
         content: url('data:image/svg+xml;utf8,<svg version="1.0" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><style type="text/css">.st0{fill:none;stroke:url(%23XMLID_3_);stroke-width:2;stroke-linecap:round;stroke-miterlimit:10;}</style><linearGradient id="XMLID_3_" gradientUnits="userSpaceOnUse" x1="3.9823" y1="13.5647" x2="26.0177" y2="13.5647"><stop  offset="0" style="stop-color:%23d1af66"/><stop  offset="1" style="stop-color:%23d1af66"/></linearGradient><path id="XMLID_2_" class="st0" d="M22.5,21.7c1.6-1.8,2.5-4.1,2.5-6.7c0-5.5-4.5-10-10-10S5,9.5,5,15c0,2.8,1.1,5.3,3,7.1"/></svg>');
@@ -82,9 +83,9 @@ button {
         border: 1px solid var(--purple);
         background-color: var(--purple);
         transition: all 0.4s ease;
+        padding: 10px 25px;
 
         &:hover {
-            opacity: 0.9;
             background-color: var(--white);
             color: var(--purple);
         }

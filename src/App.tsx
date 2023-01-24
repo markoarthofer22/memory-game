@@ -1,35 +1,36 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Board from './components/board';
 import Button from './components/button';
-import Modal from './components/modal';
 import { v4 as uuidv4 } from 'uuid';
-import { memoryImageType, TStatus } from './types';
-import { COL_NUM, LS_RATIO_KEY, MEMORY_IMAGES, NEEDED_FOR_GAMEOVER, NEEDED_FOR_WIN, TOTAL_FIELDS } from './consts';
-
-export interface IMemoryField extends memoryImageType {
-    id: string;
-}
-
-interface IActiveFieldModel {
-    countGood: number;
-    countBad: number;
-    status: TStatus;
-}
-
-type TScoreType = { win: number; lose: number };
+import { COL_NUM, MEMORY_IMAGES, TOTAL_FIELDS } from './consts';
+import { useAppDispatch, useAppSelector } from './hooks/useReduxStore';
+import Dialog from './components/dialog';
+import DialogContext from './context/dialog/dialog.context';
+import {
+    setScore,
+    setGameOverMsg,
+    setActiveField,
+    saveActiveGame,
+    setLastActiveMemoryField,
+} from './store/globals/globals.reducer';
 
 const App = () => {
     const [memoryFields, setMemoryFields] = useState<IMemoryField[]>([]);
-    const [activeField, setActiveField] = useState<IActiveFieldModel | null>(null);
-    const [score, setScore] = useState<TScoreType>(JSON.parse(localStorage.getItem(LS_RATIO_KEY) || '[]'));
-    const [surroundingArrayIndexes, setSurroundingArrayIndexes] = useState<number[]>([]);
-    const [gameOverMsg, setGameOverMsg] = useState<string | undefined>(undefined);
     const [isGameOver, setIsGameOver] = useState<boolean>(false);
     const [turns, setTurns] = useState<number>(0);
+    const { dialog, setDialog } = useContext(DialogContext);
+    const dispatch = useAppDispatch();
+
+    // redux test
+    const score = useAppSelector((state) => state.globals.results);
+    const gameOverMsg = useAppSelector((state) => state.globals.gameOverMessage);
+    const activeField = useAppSelector((state) => state.globals.activeField);
+    const game = useAppSelector((state) => state.globals.lastActiveGame);
 
     const shuffleFields = (totalFields: number) => {
         setIsGameOver(false);
-        setActiveField(null);
+        dispatch(setActiveField(null));
+
         const multiplier = totalFields / MEMORY_IMAGES.length;
         const initFieldsArr = [];
         for (let i = 0; i < multiplier; i++) {
@@ -41,61 +42,29 @@ const App = () => {
             .map((item: memoryImageType) => ({ ...item, id: uuidv4() }));
 
         setMemoryFields(shuffledFieldsArr);
+        dispatch(setLastActiveMemoryField(shuffledFieldsArr));
         setTurns(0);
     };
 
-    const returnValueFromBoardField = (value: string, index: number) => {
-        if (value === 'smile') {
-            setActiveField({
-                ...activeField,
-                countGood: (activeField?.countGood || 0) + 1,
-                countBad: activeField?.countBad || 0,
-                status: (activeField?.countGood || 0) + 1 === NEEDED_FOR_WIN ? 'win' : 'ingame',
-            });
-        }
-
-        if (value === 'bomb') {
-            setActiveField({
-                ...activeField,
-                countGood: activeField?.countGood || 0,
-                countBad: (activeField?.countBad || 0) + 1,
-                status: (activeField?.countBad || 0) + 1 === NEEDED_FOR_GAMEOVER ? 'gameover' : 'ingame',
-            });
-        }
-
-        if (value === 'resets') {
-            setActiveField({
-                ...activeField,
-                countGood: 0,
-                countBad: 0,
-                status: 'ingame',
-            });
-
-            // getSurroundingFieldsValues(index);
-        }
-
+    const returnValueFromBoardField = async (value: string, index: number) => {
+        await dispatch(setActiveField(value));
+        dispatch(saveActiveGame({ index }));
         setTurns((prevTurns) => prevTurns + 1);
     };
-
     const handleStatus = (status: TStatus) => {
-        const currentLSValue = JSON.parse(localStorage.getItem(LS_RATIO_KEY) || '[]');
-        const newLSValue = {
-            win: status === 'win' ? (currentLSValue?.win || 0) + 1 : currentLSValue?.win || 0,
-            lose: status === 'gameover' ? (currentLSValue?.lose || 0) + 1 : currentLSValue?.lose || 0,
-        };
-        localStorage.setItem(LS_RATIO_KEY, JSON.stringify(newLSValue));
-        setScore(newLSValue);
+        dispatch(setScore({ status }));
 
         switch (status) {
             case 'win':
-                setGameOverMsg(`Congratulations, you won!! Let's do it again. :)`);
+                dispatch(setGameOverMsg(`Congratulations, you won!! Let's do it again. :)`));
+                dispatch(setActiveField(null));
                 setIsGameOver(true);
-                setActiveField(null);
+
                 break;
             case 'gameover':
-                setGameOverMsg(`Oh snap, you lost. Let's go again!`);
+                dispatch(setGameOverMsg(`Oh snap, you lost. Let's go again!`));
+                dispatch(setActiveField(null));
                 setIsGameOver(true);
-                setActiveField(null);
             default:
                 break;
         }
@@ -119,19 +88,30 @@ const App = () => {
     //     ]);
     // };
 
-    // useEffect(() => {
-    //     // save to redux - totalTries, winNumber, etc
-    //     if (isGameOver) shuffleFields(TOTAL_FIELDS);
-    // }, [isGameOver]);
+    useEffect(() => {
+        if (isGameOver) {
+            setDialog({
+                isOpen: true,
+                text: gameOverMsg!,
+                title: 'Hello there',
+                handleConfirm: async () => {
+                    setDialog({ ...dialog, isOpen: false });
+                    shuffleFields(TOTAL_FIELDS);
+                },
+                centerDialog: true,
+                confirmText: 'Done',
+            });
+        }
+    }, [isGameOver]);
 
     useEffect(() => {
         if (activeField?.status) handleStatus(activeField.status);
     }, [activeField?.status, memoryFields]);
 
     useEffect(() => {
-        if (memoryFields.length !== 0) return;
-        // do init shuffle
-        shuffleFields(TOTAL_FIELDS);
+        if (game?.memoryFields && game?.memoryFields?.length > 0) {
+            setMemoryFields(game?.memoryFields);
+        } else shuffleFields(TOTAL_FIELDS);
     }, []);
 
     return (
@@ -147,13 +127,14 @@ const App = () => {
                         <p>Losses: {score?.lose || 0} </p>
                     </div>
                     {/* maybe add loader */}
-                    <Button title="Shuffle" className="primary" onClick={() => shuffleFields(TOTAL_FIELDS)} />
+                    <Button title="Shuffle" className="purple" onClick={() => shuffleFields(TOTAL_FIELDS)} />
 
                     <Board.Grid>
                         {memoryFields.map((field: IMemoryField, index: number) => (
                             <Board.Item
                                 key={field.id}
-                                isOpen={surroundingArrayIndexes.includes(index) && field.name !== 'resets'}
+                                // isOpen={surroundingArrayIndexes.includes(index) && field.name !== 'resets'}
+                                isOpen={game?.openedFields?.includes(index)}
                                 onClickCallback={(value: string) => returnValueFromBoardField(value, index)}
                                 {...field}
                             />
@@ -161,14 +142,7 @@ const App = () => {
                     </Board.Grid>
                 </div>
 
-                <Modal
-                    isOpen={isGameOver}
-                    okButton="Start again"
-                    onSuccessCallback={() => shuffleFields(TOTAL_FIELDS)}
-                    handleClose={() => shuffleFields(TOTAL_FIELDS)}
-                >
-                    <p style={{ fontWeight: 600, fontSize: 20 }}>{gameOverMsg}</p>
-                </Modal>
+                <Dialog />
             </main>
         </div>
     );

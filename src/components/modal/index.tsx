@@ -14,6 +14,7 @@ interface IModalProps {
 
 const Modal = ({ isOpen, handleClose, children, title, okButton = 'OK', onSuccessCallback }: IModalProps) => {
     useEffect(() => {
+        if (!isOpen) return;
         document.body.style.top = `-${window.scrollY}px`;
         document.body.style.width = '100%';
         document.body.style.position = 'fixed';
@@ -27,7 +28,7 @@ const Modal = ({ isOpen, handleClose, children, title, okButton = 'OK', onSucces
 
             window.scrollTo(0, parseInt(scrollY || '0') * -1);
         };
-    }, []);
+    }, [isOpen]);
 
     if (!isOpen) return null;
 

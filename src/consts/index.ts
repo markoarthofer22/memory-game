@@ -1,5 +1,3 @@
-import { memoryImageType } from './../types/index';
-
 export const MEMORY_IMAGES: memoryImageType[] = [
     {
         img: '💥',
@@ -24,3 +22,5 @@ export const NEEDED_FOR_GAMEOVER = 2;
 export const COL_NUM = 6;
 
 export const LS_RATIO_KEY = 'winloseratio';
+
+export const LS_LAST_ACTIVE_GAME = 'lastactivegame';

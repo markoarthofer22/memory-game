@@ -1,0 +1,99 @@
+.dialogOuter {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: 10px 35px;
+
+    .dialog {
+        width: fit-content;
+        max-width: 600px;
+        height: fit-content;
+        max-height: 100%;
+        padding: 40px 40px;
+        background-color: var(--white);
+        border-radius: 12px;
+        position: relative;
+        box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+
+        &.centered-dialog {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            .actions {
+                margin-top: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+
+                button:last-child {
+                    margin-top: 15px;
+                }
+                .confirm,
+                .cancel {
+                    // padding: 10px 70px;
+                    margin-right: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    min-width: 150px;
+                }
+            }
+        }
+
+        .title {
+            margin: 0 0 1rem 0;
+            font-weight: bold;
+            font-size: 2rem;
+            color: var(--color);
+        }
+
+        .message {
+            margin: 10px 0;
+            font-size: 1.4rem;
+            line-height: 1.6;
+            color: rgb(82, 82, 82);
+        }
+
+        .actions {
+            display: flex;
+
+            .cancel {
+                border: 1px solid var(--red);
+                background-color: transparent;
+                color: var(--red);
+                padding: 10px 25px;
+                &:hover {
+                    background-color: var(--black);
+                    color: var(--black);
+                }
+            }
+
+            .confirm {
+                border: 1px solid var(--purple);
+                background-color: var(--purple);
+                color: var(--white);
+                padding: 10px 25px;
+
+                &:hover {
+                    background-color: transparent;
+                    color: var(--purple);
+                }
+            }
+
+            & > button {
+                margin: 0 1.5rem 0 0;
+            }
+        }
+    }
+}

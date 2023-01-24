@@ -19,8 +19,8 @@ This assessment consists of developing a simple game somehow similar to mineswee
 
 ## Functional requirements
 
--   The game state should be persisted when reloading the page
-    -   preferably use a state management library to handle the state of the game
+-   The game state should be persisted when reloading the page :done: redux-toolkit
+    -   preferably use a state management library to handle the state of the game :done:
 -   There should be a button to restart the game :done:
 -   A score containing number of wins and losses should be kept in local storage _(optional)_:done:
 
