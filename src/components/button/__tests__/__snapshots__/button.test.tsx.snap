@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button component tests First render with all props passed 1`] = `
+<button
+  className=" "
+  disabled={false}
+  title="Button title"
+  type="button"
+>
+   
+  Button title
+</button>
+`;

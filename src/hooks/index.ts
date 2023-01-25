@@ -1,8 +1,8 @@
 import { useAppDispatch, useAppSelector } from './useReduxStore/index';
 
 const allHooks = {
-    useAppDispatch,
-    useAppSelector,
+  useAppDispatch,
+  useAppSelector,
 };
 
 export default allHooks;

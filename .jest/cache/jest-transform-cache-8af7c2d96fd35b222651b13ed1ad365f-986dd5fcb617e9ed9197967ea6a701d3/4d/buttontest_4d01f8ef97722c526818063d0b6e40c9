@@ -1,0 +1,38 @@
+45920767296ab42688beea7038729524
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const react_1 = __importDefault(require("react"));
+const react_test_renderer_1 = __importDefault(require("react-test-renderer"));
+const react_2 = require("@testing-library/react");
+const user_event_1 = __importDefault(require("@testing-library/user-event"));
+const index_1 = __importDefault(require("../index"));
+describe('Button component tests', () => {
+    it('First render with all props passed', () => {
+        const component = react_test_renderer_1.default.create(react_1.default.createElement(index_1.default, { title: "Button title" })).toJSON();
+        expect(component).toMatchSnapshot();
+    });
+    it('should render a button with the tile "Button title"', () => {
+        (0, react_2.render)(react_1.default.createElement(index_1.default, { title: "Button title" }));
+        const button = react_2.screen.getByText(/title/i);
+        expect(button).toHaveTextContent('Button title');
+    });
+    it('should be disabled if disabled prop is passed', () => {
+        (0, react_2.render)(react_1.default.createElement(index_1.default, { disabled: true, title: "Button title" }));
+        const button = react_2.screen.getByText(/title/i);
+        expect(button).toBeDisabled();
+    });
+    it('should be disabled when clicked', async () => {
+        const [disabled, setDisabled] = react_1.default.useState(false);
+        (0, react_2.render)(react_1.default.createElement(index_1.default, { disabled: disabled, title: "Button title", onClick: () => {
+                setDisabled(true);
+            } }));
+        const button = react_2.screen.getByText(/title/i);
+        expect(button).not.toBeDisabled();
+        await user_event_1.default.click(button);
+        expect(button).toBeDisabled();
+    });
+});
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL1VzZXJzL21hcmtvYXJ0aG9mZXIvRG9jdW1lbnRzL1Byb2plY3RzL3Rlc3QtcHJvamVjdC9zcmMvY29tcG9uZW50cy9idXR0b24vX190ZXN0c19fL2J1dHRvbi50ZXN0LnRzeCIsIm1hcHBpbmdzIjoiOzs7OztBQUFBLGtEQUEwQjtBQUMxQiw4RUFBMkM7QUFDM0Msa0RBQXdEO0FBQ3hELDZFQUErQztBQUMvQyxxREFBOEI7QUFFOUIsUUFBUSxDQUFDLHdCQUF3QixFQUFFLEdBQUcsRUFBRTtJQUN0QyxFQUFFLENBQUMsb0NBQW9DLEVBQUUsR0FBRyxFQUFFO1FBQzVDLE1BQU0sU0FBUyxHQUFHLDZCQUFRLENBQUMsTUFBTSxDQUFDLDhCQUFDLGVBQU0sSUFBQyxLQUFLLEVBQUMsY0FBYyxHQUFHLENBQUMsQ0FBQyxNQUFNLEVBQUUsQ0FBQztRQUM1RSxNQUFNLENBQUMsU0FBUyxDQUFDLENBQUMsZUFBZSxFQUFFLENBQUM7SUFDdEMsQ0FBQyxDQUFDLENBQUM7SUFFSCxFQUFFLENBQUMscURBQXFELEVBQUUsR0FBRyxFQUFFO1FBQzdELElBQUEsY0FBTSxFQUFDLDhCQUFDLGVBQU0sSUFBQyxLQUFLLEVBQUMsY0FBYyxHQUFHLENBQUMsQ0FBQztRQUN4QyxNQUFNLE1BQU0sR0FBRyxjQUFNLENBQUMsU0FBUyxDQUFDLFFBQVEsQ0FBQyxDQUFDO1FBRTFDLE1BQU0sQ0FBQyxNQUFNLENBQUMsQ0FBQyxpQkFBaUIsQ0FBQyxjQUFjLENBQUMsQ0FBQztJQUNuRCxDQUFDLENBQUMsQ0FBQztJQUVILEVBQUUsQ0FBQywrQ0FBK0MsRUFBRSxHQUFHLEVBQUU7UUFDdkQsSUFBQSxjQUFNLEVBQUMsOEJBQUMsZUFBTSxJQUFDLFFBQVEsUUFBQyxLQUFLLEVBQUMsY0FBYyxHQUFHLENBQUMsQ0FBQztRQUNqRCxNQUFNLE1BQU0sR0FBRyxjQUFNLENBQUMsU0FBUyxDQUFDLFFBQVEsQ0FBQyxDQUFDO1FBRTFDLE1BQU0sQ0FBQyxNQUFNLENBQUMsQ0FBQyxZQUFZLEVBQUUsQ0FBQztJQUNoQyxDQUFDLENBQUMsQ0FBQztJQUVILEVBQUUsQ0FBQyxpQ0FBaUMsRUFBRSxLQUFLLElBQUksRUFBRTtRQUMvQyxNQUFNLENBQUMsUUFBUSxFQUFFLFdBQVcsQ0FBQyxHQUFHLGVBQUssQ0FBQyxRQUFRLENBQUMsS0FBSyxDQUFDLENBQUM7UUFDdEQsSUFBQSxjQUFNLEVBQ0osOEJBQUMsZUFBTSxJQUNMLFFBQVEsRUFBRSxRQUFRLEVBQ2xCLEtBQUssRUFBQyxjQUFjLEVBQ3BCLE9BQU8sRUFBRSxHQUFHLEVBQUU7Z0JBQ1osV0FBVyxDQUFDLElBQUksQ0FBQyxDQUFDO1lBQ3BCLENBQUMsR0FDRCxDQUNILENBQUM7UUFDRixNQUFNLE1BQU0sR0FBRyxjQUFNLENBQUMsU0FBUyxDQUFDLFFBQVEsQ0FBQyxDQUFDO1FBRTFDLE1BQU0sQ0FBQyxNQUFNLENBQUMsQ0FBQyxHQUFHLENBQUMsWUFBWSxFQUFFLENBQUM7UUFFbEMsTUFBTSxvQkFBSSxDQUFDLEtBQUssQ0FBQyxNQUFNLENBQUMsQ0FBQztRQUV6QixNQUFNLENBQUMsTUFBTSxDQUFDLENBQUMsWUFBWSxFQUFFLENBQUM7SUFDaEMsQ0FBQyxDQUFDLENBQUM7QUFDTCxDQUFDLENBQUMsQ0FBQyIsIm5hbWVzIjpbXSwic291cmNlcyI6WyIvVXNlcnMvbWFya29hcnRob2Zlci9Eb2N1bWVudHMvUHJvamVjdHMvdGVzdC1wcm9qZWN0L3NyYy9jb21wb25lbnRzL2J1dHRvbi9fX3Rlc3RzX18vYnV0dG9uLnRlc3QudHN4Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCBmcm9tICdyZWFjdCc7XG5pbXBvcnQgcmVuZGVyZXIgZnJvbSAncmVhY3QtdGVzdC1yZW5kZXJlcic7XG5pbXBvcnQgeyByZW5kZXIsIHNjcmVlbiB9IGZyb20gJ0B0ZXN0aW5nLWxpYnJhcnkvcmVhY3QnO1xuaW1wb3J0IHVzZXIgZnJvbSAnQHRlc3RpbmctbGlicmFyeS91c2VyLWV2ZW50JztcbmltcG9ydCBCdXR0b24gZnJvbSAnLi4vaW5kZXgnO1xuXG5kZXNjcmliZSgnQnV0dG9uIGNvbXBvbmVudCB0ZXN0cycsICgpID0+IHtcbiAgaXQoJ0ZpcnN0IHJlbmRlciB3aXRoIGFsbCBwcm9wcyBwYXNzZWQnLCAoKSA9PiB7XG4gICAgY29uc3QgY29tcG9uZW50ID0gcmVuZGVyZXIuY3JlYXRlKDxCdXR0b24gdGl0bGU9XCJCdXR0b24gdGl0bGVcIiAvPikudG9KU09OKCk7XG4gICAgZXhwZWN0KGNvbXBvbmVudCkudG9NYXRjaFNuYXBzaG90KCk7XG4gIH0pO1xuXG4gIGl0KCdzaG91bGQgcmVuZGVyIGEgYnV0dG9uIHdpdGggdGhlIHRpbGUgXCJCdXR0b24gdGl0bGVcIicsICgpID0+IHtcbiAgICByZW5kZXIoPEJ1dHRvbiB0aXRsZT1cIkJ1dHRvbiB0aXRsZVwiIC8+KTtcbiAgICBjb25zdCBidXR0b24gPSBzY3JlZW4uZ2V0QnlUZXh0KC90aXRsZS9pKTtcblxuICAgIGV4cGVjdChidXR0b24pLnRvSGF2ZVRleHRDb250ZW50KCdCdXR0b24gdGl0bGUnKTtcbiAgfSk7XG5cbiAgaXQoJ3Nob3VsZCBiZSBkaXNhYmxlZCBpZiBkaXNhYmxlZCBwcm9wIGlzIHBhc3NlZCcsICgpID0+IHtcbiAgICByZW5kZXIoPEJ1dHRvbiBkaXNhYmxlZCB0aXRsZT1cIkJ1dHRvbiB0aXRsZVwiIC8+KTtcbiAgICBjb25zdCBidXR0b24gPSBzY3JlZW4uZ2V0QnlUZXh0KC90aXRsZS9pKTtcblxuICAgIGV4cGVjdChidXR0b24pLnRvQmVEaXNhYmxlZCgpO1xuICB9KTtcblxuICBpdCgnc2hvdWxkIGJlIGRpc2FibGVkIHdoZW4gY2xpY2tlZCcsIGFzeW5jICgpID0+IHtcbiAgICBjb25zdCBbZGlzYWJsZWQsIHNldERpc2FibGVkXSA9IFJlYWN0LnVzZVN0YXRlKGZhbHNlKTtcbiAgICByZW5kZXIoXG4gICAgICA8QnV0dG9uXG4gICAgICAgIGRpc2FibGVkPXtkaXNhYmxlZH1cbiAgICAgICAgdGl0bGU9XCJCdXR0b24gdGl0bGVcIlxuICAgICAgICBvbkNsaWNrPXsoKSA9PiB7XG4gICAgICAgICAgc2V0RGlzYWJsZWQodHJ1ZSk7XG4gICAgICAgIH19XG4gICAgICAvPlxuICAgICk7XG4gICAgY29uc3QgYnV0dG9uID0gc2NyZWVuLmdldEJ5VGV4dCgvdGl0bGUvaSk7XG5cbiAgICBleHBlY3QoYnV0dG9uKS5ub3QudG9CZURpc2FibGVkKCk7XG5cbiAgICBhd2FpdCB1c2VyLmNsaWNrKGJ1dHRvbik7XG5cbiAgICBleHBlY3QoYnV0dG9uKS50b0JlRGlzYWJsZWQoKTtcbiAgfSk7XG59KTtcbiJdLCJ2ZXJzaW9uIjozfQ==

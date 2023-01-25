@@ -1,16 +1,16 @@
 export const MEMORY_IMAGES: memoryImageType[] = [
-    {
-        img: '💥',
-        name: 'bomb',
-    },
-    {
-        img: '🌀',
-        name: 'resets',
-    },
-    {
-        img: '😃',
-        name: 'smile',
-    },
+  {
+    img: '💥',
+    name: 'bomb',
+  },
+  {
+    img: '🌀',
+    name: 'resets',
+  },
+  {
+    img: '😃',
+    name: 'smile',
+  },
 ];
 
 export const TOTAL_FIELDS = 36;

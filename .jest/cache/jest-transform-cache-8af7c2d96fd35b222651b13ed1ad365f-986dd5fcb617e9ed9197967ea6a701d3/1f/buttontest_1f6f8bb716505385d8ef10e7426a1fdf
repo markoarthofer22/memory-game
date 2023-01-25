@@ -1,0 +1,27 @@
+d9b9b8f63011867ec47862b993d7ec72
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const react_1 = __importDefault(require("react"));
+const react_test_renderer_1 = __importDefault(require("react-test-renderer"));
+const react_2 = require("@testing-library/react");
+const index_1 = __importDefault(require("../index"));
+describe('Button component tests', () => {
+    it('First render with all props passed', () => {
+        const component = react_test_renderer_1.default.create(react_1.default.createElement(index_1.default, { title: "Button title" })).toJSON();
+        expect(component).toMatchSnapshot();
+    });
+    it('should render a button with the tile "Button title"', () => {
+        (0, react_2.render)(react_1.default.createElement(index_1.default, { title: "Button title" }));
+        const button = react_2.screen.getByText(/title/i);
+        expect(button).toHaveTextContent('Button title');
+    });
+    it('should be disabled if disabled prop is passed', () => {
+        (0, react_2.render)(react_1.default.createElement(index_1.default, { title: "Button title" }));
+        const button = react_2.screen.getByText(/title/i);
+        expect(button).toBeDisabled();
+    });
+});
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL1VzZXJzL21hcmtvYXJ0aG9mZXIvRG9jdW1lbnRzL1Byb2plY3RzL3Rlc3QtcHJvamVjdC9zcmMvY29tcG9uZW50cy9idXR0b24vX190ZXN0c19fL2J1dHRvbi50ZXN0LnRzeCIsIm1hcHBpbmdzIjoiOzs7OztBQUFBLGtEQUEwQjtBQUMxQiw4RUFBMkM7QUFDM0Msa0RBQXdEO0FBQ3hELHFEQUE4QjtBQUU5QixRQUFRLENBQUMsd0JBQXdCLEVBQUUsR0FBRyxFQUFFO0lBQ3RDLEVBQUUsQ0FBQyxvQ0FBb0MsRUFBRSxHQUFHLEVBQUU7UUFDNUMsTUFBTSxTQUFTLEdBQUcsNkJBQVEsQ0FBQyxNQUFNLENBQUMsOEJBQUMsZUFBTSxJQUFDLEtBQUssRUFBQyxjQUFjLEdBQUcsQ0FBQyxDQUFDLE1BQU0sRUFBRSxDQUFDO1FBQzVFLE1BQU0sQ0FBQyxTQUFTLENBQUMsQ0FBQyxlQUFlLEVBQUUsQ0FBQztJQUN0QyxDQUFDLENBQUMsQ0FBQztJQUVILEVBQUUsQ0FBQyxxREFBcUQsRUFBRSxHQUFHLEVBQUU7UUFDN0QsSUFBQSxjQUFNLEVBQUMsOEJBQUMsZUFBTSxJQUFDLEtBQUssRUFBQyxjQUFjLEdBQUcsQ0FBQyxDQUFDO1FBQ3hDLE1BQU0sTUFBTSxHQUFHLGNBQU0sQ0FBQyxTQUFTLENBQUMsUUFBUSxDQUFDLENBQUM7UUFFMUMsTUFBTSxDQUFDLE1BQU0sQ0FBQyxDQUFDLGlCQUFpQixDQUFDLGNBQWMsQ0FBQyxDQUFDO0lBQ25ELENBQUMsQ0FBQyxDQUFDO0lBRUgsRUFBRSxDQUFDLCtDQUErQyxFQUFFLEdBQUcsRUFBRTtRQUN2RCxJQUFBLGNBQU0sRUFBQyw4QkFBQyxlQUFNLElBQUMsS0FBSyxFQUFDLGNBQWMsR0FBRyxDQUFDLENBQUM7UUFDeEMsTUFBTSxNQUFNLEdBQUcsY0FBTSxDQUFDLFNBQVMsQ0FBQyxRQUFRLENBQUMsQ0FBQztRQUUxQyxNQUFNLENBQUMsTUFBTSxDQUFDLENBQUMsWUFBWSxFQUFFLENBQUM7SUFDaEMsQ0FBQyxDQUFDLENBQUM7QUFDTCxDQUFDLENBQUMsQ0FBQyIsIm5hbWVzIjpbXSwic291cmNlcyI6WyIvVXNlcnMvbWFya29hcnRob2Zlci9Eb2N1bWVudHMvUHJvamVjdHMvdGVzdC1wcm9qZWN0L3NyYy9jb21wb25lbnRzL2J1dHRvbi9fX3Rlc3RzX18vYnV0dG9uLnRlc3QudHN4Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCBmcm9tICdyZWFjdCc7XG5pbXBvcnQgcmVuZGVyZXIgZnJvbSAncmVhY3QtdGVzdC1yZW5kZXJlcic7XG5pbXBvcnQgeyByZW5kZXIsIHNjcmVlbiB9IGZyb20gJ0B0ZXN0aW5nLWxpYnJhcnkvcmVhY3QnO1xuaW1wb3J0IEJ1dHRvbiBmcm9tICcuLi9pbmRleCc7XG5cbmRlc2NyaWJlKCdCdXR0b24gY29tcG9uZW50IHRlc3RzJywgKCkgPT4ge1xuICBpdCgnRmlyc3QgcmVuZGVyIHdpdGggYWxsIHByb3BzIHBhc3NlZCcsICgpID0+IHtcbiAgICBjb25zdCBjb21wb25lbnQgPSByZW5kZXJlci5jcmVhdGUoPEJ1dHRvbiB0aXRsZT1cIkJ1dHRvbiB0aXRsZVwiIC8+KS50b0pTT04oKTtcbiAgICBleHBlY3QoY29tcG9uZW50KS50b01hdGNoU25hcHNob3QoKTtcbiAgfSk7XG5cbiAgaXQoJ3Nob3VsZCByZW5kZXIgYSBidXR0b24gd2l0aCB0aGUgdGlsZSBcIkJ1dHRvbiB0aXRsZVwiJywgKCkgPT4ge1xuICAgIHJlbmRlcig8QnV0dG9uIHRpdGxlPVwiQnV0dG9uIHRpdGxlXCIgLz4pO1xuICAgIGNvbnN0IGJ1dHRvbiA9IHNjcmVlbi5nZXRCeVRleHQoL3RpdGxlL2kpO1xuXG4gICAgZXhwZWN0KGJ1dHRvbikudG9IYXZlVGV4dENvbnRlbnQoJ0J1dHRvbiB0aXRsZScpO1xuICB9KTtcblxuICBpdCgnc2hvdWxkIGJlIGRpc2FibGVkIGlmIGRpc2FibGVkIHByb3AgaXMgcGFzc2VkJywgKCkgPT4ge1xuICAgIHJlbmRlcig8QnV0dG9uIHRpdGxlPVwiQnV0dG9uIHRpdGxlXCIgLz4pO1xuICAgIGNvbnN0IGJ1dHRvbiA9IHNjcmVlbi5nZXRCeVRleHQoL3RpdGxlL2kpO1xuXG4gICAgZXhwZWN0KGJ1dHRvbikudG9CZURpc2FibGVkKCk7XG4gIH0pO1xufSk7XG4iXSwidmVyc2lvbiI6M30=

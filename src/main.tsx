@@ -8,11 +8,11 @@ import './index.scss';
 import DialogProvider from './context/dialog/dialog.provider';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-    <React.StrictMode>
-        <Provider store={store}>
-            <DialogProvider>
-                <App />
-            </DialogProvider>
-        </Provider>
-    </React.StrictMode>
+  <React.StrictMode>
+    <Provider store={store}>
+      <DialogProvider>
+        <App />
+      </DialogProvider>
+    </Provider>
+  </React.StrictMode>
 );

@@ -1,13 +1,11 @@
-import React, { Children } from 'react';
+import React from 'react';
 
 import '../index.scss';
 
 interface IBoardGridProps {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }
 
-const Grid = ({ children }: IBoardGridProps) => {
-    return <div className="board--wrapper">{children}</div>;
-};
+const Grid = ({ children }: IBoardGridProps) => <div className="board--wrapper">{children}</div>;
 
 export default Grid;
